@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="165px" height="180px" viewBox="0 0 165 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>empty-state@2x</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="136" height="152" rx="8"></rect>
+        <filter x="-13.2%" y="-7.9%" width="126.5%" height="123.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="6" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.14 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="01-onboarding_v1b" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-305.000000, -689.000000)">
+        <g id="add-00-empty-notification" transform="translate(200.000000, 416.000000)">
+            <g id="emptystate@2x" transform="translate(102.000000, 276.000000)">
+                <g id="list_item/empty-state_illustration" transform="translate(12.000000, 0.000000)">
+                    <g id="Group-5" transform="translate(73.135847, 81.000000) rotate(-4.000000) translate(-73.135847, -81.000000) translate(5.135847, 5.000000)">
+                        <g id="Rectangle-5">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        </g>
+                        <circle id="Oval" fill="#2B98F0" cx="24" cy="24" r="8"></circle>
+                        <circle id="Oval-Copy-2" fill="#FDC02F" cx="24" cy="88" r="8"></circle>
+                        <circle id="Oval-Copy" fill="#F1453D" cx="24" cy="56" r="8"></circle>
+                        <circle id="Oval-Copy-3" fill="#50AE55" cx="24" cy="120" r="8"></circle>
+                        <rect id="Rectangle-7" fill-opacity="0.1" fill="#000000" x="48" y="22" width="72" height="4" rx="2"></rect>
+                        <rect id="Rectangle-7-Copy-2" fill-opacity="0.1" fill="#000000" x="48" y="86" width="64" height="4" rx="2"></rect>
+                        <rect id="Rectangle-7-Copy" fill-opacity="0.1" fill="#000000" x="48" y="54" width="56" height="4" rx="2"></rect>
+                        <rect id="Rectangle-7-Copy-3" fill-opacity="0.1" fill="#000000" x="48" y="118" width="56" height="4" rx="2"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

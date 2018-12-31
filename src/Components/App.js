@@ -1,4 +1,5 @@
 import React from 'react'
+
 import emptyListLogo from './empty_list.svg'
 
 class App extends React.Component {
@@ -44,16 +45,22 @@ class App extends React.Component {
 	}
 
 	// Event: Add Notes to Item in List
-	addNotesToItem = item => {
-		//TODO still need to fix state update
-		console.log(item)
+	addNotesToItem = index => {
+		this.setState(prevState => {
+			const items = prevState.items.map((item, i) => {
+				if (i === index) {
+					return { ...item, notes: 'ttt' }
+				} else {
+					return { ...item }
+				}
+			})
 
-		this.setState({
-			items: [{ ...item, notes: 'dddd' }]
+			return { items }
 		})
 	}
 
 	render() {
+		const { classes } = this.props
 		return (
 			<div className='container'>
 				<div className='row justify-content-center'>
@@ -105,21 +112,23 @@ class App extends React.Component {
 									</tr>
 								</thead>
 								<tbody>
-									{this.state.items.map(item => {
+									{this.state.items.map((item, index) => {
 										return (
 											<tr key={item.name}>
-												<th scope='row'>{item.qty}</th>
-												<td>{item.name}</td>
+												<th className='align-middle' scope='row'>
+													{item.qty}
+												</th>
+												<td className='align-middle'>{item.name}</td>
 												<td width='108'>
 													<button
 														type='button'
 														className='btn btn-outline-primary btn-sm add-notes'
-														onClick={() => this.addNotesToItem(item)}
+														onClick={() => this.addNotesToItem(index)}
 													>
 														add notes
 													</button>
 												</td>
-												<td width='30'>
+												<td className='align-middle' width='30'>
 													<button
 														type='button'
 														className='close'

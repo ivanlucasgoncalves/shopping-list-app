@@ -3,14 +3,17 @@ import Notes from './Notes'
 
 class List extends React.Component {
 	state = {
-		show: false
+		show: false,
+		checked: false
 	}
 
-	ShowNotes = item => {
+	showNotes = item => {
 		if (item.notes) {
 			this.setState({ show: true })
 		}
 	}
+
+	onHandleChecked = () => this.setState({ checked: !this.state.checked })
 
 	render() {
 		const {
@@ -24,33 +27,41 @@ class List extends React.Component {
 		} = this.props
 		return (
 			<React.Fragment>
-				<tr>
+				<tr className={this.state.checked ? 'bg-primary text-white' : ''}>
 					<th className='align-middle' scope='row'>
 						{item.qty}
 					</th>
 					<td className='align-middle'>{item.name}</td>
-					<td width='110'>
+					<td className='align-middle' width='30'>
 						<button
 							type='button'
-							style={{ minWidth: 105 }}
-							className='btn btn-outline-primary btn-sm add-notes'
+							className={`close ${this.state.checked ? 'text-white' : ''}`}
 							onClick={() => onHandleCollapse(index)}
 						>
-							{!collapse ? 'view notes' : 'close notes'}
+							<i className='fas fa-sticky-note' />
 						</button>
 					</td>
 					<td className='align-middle' width='30'>
 						<button
 							type='button'
-							className='close'
+							className={`close ${this.state.checked ? 'text-white' : ''}`}
+							onClick={() => this.onHandleChecked()}
+						>
+							<i className='fas fa-check' />
+						</button>
+					</td>
+					<td className='align-middle' width='30'>
+						<button
+							type='button'
+							className={`close ${this.state.checked ? 'text-white' : ''}`}
 							onClick={() => onHandleRemoveItem(item)}
 						>
-							&times;
+							<i className='fas fa-trash' />
 						</button>
 					</td>
 				</tr>
 				<tr className={collapse ? 'd-table-row' : 'd-none'}>
-					<td colSpan='4'>
+					<td colSpan='5'>
 						{this.state.show && <Notes notes={item.notes} />}
 						<div className='form-row align-items-center'>
 							<div className='col my-1'>
@@ -72,7 +83,7 @@ class List extends React.Component {
 									type='submit'
 									className='btn btn-primary'
 									onClick={() =>
-										onHandleSubmitNotes(index, this.ShowNotes(item))
+										onHandleSubmitNotes(index, this.showNotes(item))
 									}
 								>
 									Add

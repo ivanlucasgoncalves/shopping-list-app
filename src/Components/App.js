@@ -118,7 +118,7 @@ class App extends React.Component {
 										<th scope='col' width='70'>
 											Qty.
 										</th>
-										<th scope='col' colSpan='3'>
+										<th scope='col' colSpan='4'>
 											Item
 										</th>
 									</tr>

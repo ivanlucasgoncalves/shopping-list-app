@@ -37,10 +37,19 @@ class List extends React.Component {
 		return (
 			<React.Fragment>
 				<tr className={checked ? 'bg-primary text-white' : ''}>
-					<th className='align-middle' scope='row'>
+					<th
+						className='align-middle'
+						scope='row'
+						style={{ textDecorationLine: checked ? 'line-through' : '' }}
+					>
 						{item.qty}
 					</th>
-					<td className='align-middle'>{item.name}</td>
+					<td
+						className='align-middle'
+						style={{ textDecorationLine: checked ? 'line-through' : '' }}
+					>
+						{item.name}
+					</td>
 					<td className='align-middle' width='30'>
 						<button
 							type='button'

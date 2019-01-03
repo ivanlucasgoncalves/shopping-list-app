@@ -35,6 +35,8 @@ class App extends React.Component {
 					}
 				]
 			})
+			// Clear state and reset the form after submitting
+			document.querySelector('form').reset()
 			this.setState({
 				qty: null,
 				name: '',
@@ -106,7 +108,7 @@ class App extends React.Component {
 						<h1 className='pt-5 pb-4'>Shopping List</h1>
 						<Message message={message} />
 						<Form
-							onHandleInputChanges={this.handleInputChanges}
+							onChange={this.handleInputChanges}
 							onSubmit={this.handleSubmit}
 						/>
 						<div className='table-responsive-sm'>

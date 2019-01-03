@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Form = props => {
-	const { onHandleInputChanges, onSubmit } = props
+	const { onChange, onSubmit } = props
 	return (
 		<React.Fragment>
 			<form onSubmit={onSubmit}>
@@ -15,7 +15,7 @@ const Form = props => {
 						name='qty'
 						placeholder='add here...'
 						className='form-control form-control-lg'
-						onChange={onHandleInputChanges}
+						onChange={onChange}
 					/>
 				</div>
 				<div className='input-group mb-3'>
@@ -28,7 +28,7 @@ const Form = props => {
 						name='name'
 						placeholder='add here...'
 						className='form-control form-control-lg'
-						onChange={onHandleInputChanges}
+						onChange={onChange}
 					/>
 				</div>
 				<input className='btn btn-primary' type='submit' value='Add Item' />

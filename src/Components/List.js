@@ -8,12 +8,18 @@ class List extends React.Component {
 	}
 
 	showNotes = item => {
-		if (item.notes) {
-			this.setState({ show: true })
-		}
+		if (item.notes) this.setState({ show: true })
 	}
 
 	onHandleChecked = () => this.setState({ checked: !this.state.checked })
+
+	onClassChecked = () => {
+		if (this.state.checked) {
+			return 'text-white'
+		} else {
+			return ''
+		}
+	}
 
 	render() {
 		const {
@@ -25,9 +31,12 @@ class List extends React.Component {
 			onHandleChangesNotes,
 			onHandleSubmitNotes
 		} = this.props
+
+		const { checked, show } = this.state
+
 		return (
 			<React.Fragment>
-				<tr className={this.state.checked ? 'bg-primary text-white' : ''}>
+				<tr className={checked ? 'bg-primary text-white' : ''}>
 					<th className='align-middle' scope='row'>
 						{item.qty}
 					</th>
@@ -35,34 +44,37 @@ class List extends React.Component {
 					<td className='align-middle' width='30'>
 						<button
 							type='button'
-							className={`close ${this.state.checked ? 'text-white' : ''}`}
+							className={`close ${this.onClassChecked()}`}
 							onClick={() => onHandleCollapse(index)}
+							disabled={checked ? 'disabled' : ''}
 						>
-							<i className='fas fa-sticky-note' />
+							<i className='far fa-edit fa-xs' />
 						</button>
 					</td>
 					<td className='align-middle' width='30'>
 						<button
 							type='button'
-							className={`close ${this.state.checked ? 'text-white' : ''}`}
+							className={`close ${this.onClassChecked()}`}
 							onClick={() => this.onHandleChecked()}
+							style={{ opacity: checked ? 1 : '' }}
 						>
-							<i className='fas fa-check' />
+							<i className='fas fa-check fa-xs' />
 						</button>
 					</td>
 					<td className='align-middle' width='30'>
 						<button
 							type='button'
-							className={`close ${this.state.checked ? 'text-white' : ''}`}
+							className={`close ${this.onClassChecked()}`}
 							onClick={() => onHandleRemoveItem(item)}
+							disabled={checked ? 'disabled' : ''}
 						>
-							<i className='fas fa-trash' />
+							<i className='far fa-trash-alt fa-xs' />
 						</button>
 					</td>
 				</tr>
 				<tr className={collapse ? 'd-table-row' : 'd-none'}>
 					<td colSpan='5'>
-						{this.state.show && <Notes notes={item.notes} />}
+						{show && <Notes notes={item.notes} />}
 						<div className='form-row align-items-center'>
 							<div className='col my-1'>
 								<div className='input-group'>

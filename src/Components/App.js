@@ -55,7 +55,7 @@ class App extends React.Component {
 		this.setState({ items: [...newItems] })
 	}
 
-	handleAddNotesChanges = (e, index) => {
+	handleChangesNotes = (e, index) => {
 		let value = e.target.value
 
 		this.setState(prevState => {
@@ -137,7 +137,7 @@ class App extends React.Component {
 												collapse={collapse}
 												onHandleCollapse={this.handleCollapseNotes}
 												onHandleRemoveItem={this.handleRemoveItem}
-												onHandleAddNotesChanges={this.handleAddNotesChanges}
+												onHandleChangesNotes={this.handleChangesNotes}
 												onHandleSubmitNotes={this.handleSubmitNotes}
 											/>
 										)

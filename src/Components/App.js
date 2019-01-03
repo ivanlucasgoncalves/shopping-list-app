@@ -1,42 +1,51 @@
 import React from 'react'
-
 import emptyListLogo from './empty_list.svg'
+import List from './List'
+import Form from './Form'
+import Message from './Message'
 
 class App extends React.Component {
-	// Create State to store list
 	state = {
-		qty: 0,
-		name: null,
-		notes: '',
+		qty: null,
+		name: '',
+		message: false,
 		items: []
 	}
 
-	// Event: Handle Form Changes
 	handleInputChanges = e => {
 		let { name, value } = e.target
 		this.setState({ [name]: value })
 	}
 
-	// Event: Add Item to List
-	addItemToList = e => {
+	handleErrorMessage = () => this.setState({ message: true })
+
+	handleSubmit = e => {
 		e.preventDefault()
+		const { qty, name, items } = this.state
 
-		this.setState({
-			items: [
-				...this.state.items,
-				{
-					qty: this.state.qty,
-					name: this.state.name
-				}
-			]
-		})
-
-		// Clear Form after Submitting
-		this.refs.form.reset()
+		if (name !== '' && qty !== null) {
+			this.setState({
+				items: [
+					...items,
+					{
+						qty,
+						name,
+						open: false,
+						notes: null
+					}
+				]
+			})
+			this.setState({
+				qty: null,
+				name: '',
+				message: false
+			})
+		} else {
+			this.handleErrorMessage()
+		}
 	}
 
-	// Event: Remove Item from list
-	removeItemFromList = item => {
+	handleRemoveItem = item => {
 		const newItems = this.state.items.filter(newItem => {
 			return newItem !== item
 		})
@@ -44,12 +53,41 @@ class App extends React.Component {
 		this.setState({ items: [...newItems] })
 	}
 
-	// Event: Add Notes to Item in List
-	addNotesToItem = index => {
+	handleAddNotesChanges = (e, index) => {
+		let value = e.target.value
+
 		this.setState(prevState => {
 			const items = prevState.items.map((item, i) => {
 				if (i === index) {
-					return { ...item, notes: 'ttt' }
+					return { ...item, notes: value }
+				} else {
+					return { ...item }
+				}
+			})
+
+			return { items }
+		})
+	}
+
+	handleSubmitNotes = index => {
+		this.setState(prevState => {
+			const items = prevState.items.map((item, i) => {
+				if (i === index) {
+					return { ...item, notes: item.notes }
+				} else {
+					return { ...item }
+				}
+			})
+
+			return { items }
+		})
+	}
+
+	handleCollapseNotes = index => {
+		this.setState(prevState => {
+			const items = prevState.items.map((item, i) => {
+				if (i === index) {
+					return { ...item, open: !item.open }
 				} else {
 					return { ...item }
 				}
@@ -60,47 +98,19 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { classes } = this.props
+		const { items, message } = this.state
 		return (
 			<div className='container'>
 				<div className='row justify-content-center'>
 					<div className='col-6'>
-						<h2 className='pt-5 pb-4'>Shopping List</h2>
-						<form onSubmit={this.addItemToList} ref='form'>
-							<div className='input-group mb-3'>
-								<div className='input-group-prepend'>
-									<span className='input-group-text'>Qty.</span>
-								</div>
-								<input
-									type='text'
-									id='qty'
-									name='qty'
-									ref='qty'
-									className='form-control'
-									onChange={this.handleInputChanges}
-								/>
-							</div>
-							<div className='input-group mb-3'>
-								<div className='input-group-prepend'>
-									<span className='input-group-text'>Item</span>
-								</div>
-								<input
-									type='text'
-									id='name'
-									name='name'
-									ref='name'
-									className='form-control'
-									onChange={this.handleInputChanges}
-								/>
-							</div>
-							<input
-								className='btn btn-primary'
-								type='submit'
-								value='Add Item'
-							/>
-						</form>
+						<h1 className='pt-5 pb-4'>Shopping List</h1>
+						<Message message={message} />
+						<Form
+							onHandleInputChanges={this.handleInputChanges}
+							onSubmit={this.handleSubmit}
+						/>
 						<div className='table-responsive-sm'>
-							<table className='table table-striped table-hover mt-5'>
+							<table className='table table-striped mt-5'>
 								<thead>
 									<tr>
 										<th scope='col' width='70'>
@@ -112,32 +122,22 @@ class App extends React.Component {
 									</tr>
 								</thead>
 								<tbody>
-									{this.state.items.map((item, index) => {
+									{items.map((item, index) => {
+										let collapse
+										if (items.length > 0) {
+											collapse = item.open
+										}
 										return (
-											<tr key={item.name}>
-												<th className='align-middle' scope='row'>
-													{item.qty}
-												</th>
-												<td className='align-middle'>{item.name}</td>
-												<td width='108'>
-													<button
-														type='button'
-														className='btn btn-outline-primary btn-sm add-notes'
-														onClick={() => this.addNotesToItem(index)}
-													>
-														add notes
-													</button>
-												</td>
-												<td className='align-middle' width='30'>
-													<button
-														type='button'
-														className='close'
-														onClick={() => this.removeItemFromList(item)}
-													>
-														&times;
-													</button>
-												</td>
-											</tr>
+											<List
+												key={index}
+												item={item}
+												index={index}
+												collapse={collapse}
+												onHandleCollapse={this.handleCollapseNotes}
+												onHandleRemoveItem={this.handleRemoveItem}
+												onHandleAddNotesChanges={this.handleAddNotesChanges}
+												onHandleSubmitNotes={this.handleSubmitNotes}
+											/>
 										)
 									})}
 								</tbody>

@@ -115,6 +115,9 @@ class App extends React.Component {
 							<table className='table table-striped mt-5'>
 								<thead>
 									<tr>
+										<th width='30'>
+											<i className='fas fa-shopping-basket' />
+										</th>
 										<th scope='col' width='70'>
 											Qty.
 										</th>

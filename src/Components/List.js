@@ -13,6 +13,10 @@ class List extends React.Component {
 
 	onHandleChecked = () => this.setState({ checked: !this.state.checked })
 
+	cleanInput = () => {
+		this.inputNotes.value = ''
+	}
+
 	onClassChecked = () => {
 		if (this.state.checked) {
 			return 'text-white'
@@ -37,6 +41,9 @@ class List extends React.Component {
 		return (
 			<React.Fragment>
 				<tr className={checked ? 'bg-primary text-white' : ''}>
+					<th className='align-middle' width='30'>
+						<i className='fas fa-shopping-basket' style={{ opacity: 0.8 }} />
+					</th>
 					<th
 						className='align-middle'
 						scope='row'
@@ -82,7 +89,7 @@ class List extends React.Component {
 					</td>
 				</tr>
 				<tr className={collapse ? 'd-table-row' : 'd-none'}>
-					<td colSpan='5'>
+					<td colSpan='6'>
 						{show && <Notes notes={item.notes} />}
 						<div className='form-row align-items-center'>
 							<div className='col my-1'>
@@ -96,6 +103,7 @@ class List extends React.Component {
 										name='notes'
 										className='form-control'
 										onChange={e => onHandleChangesNotes(e, index)}
+										ref={el => (this.inputNotes = el)}
 									/>
 								</div>
 							</div>
@@ -104,7 +112,11 @@ class List extends React.Component {
 									type='submit'
 									className='btn btn-primary'
 									onClick={() =>
-										onHandleSubmitNotes(index, this.showNotes(item))
+										onHandleSubmitNotes(
+											index,
+											this.showNotes(item),
+											this.cleanInput()
+										)
 									}
 								>
 									Add
